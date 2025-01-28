@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.google.gson.Gson;
 
 import io.github.doc2json.doc2json_core.doc_parser.Doc2JsonParser;
-import io.github.doc2json.doc2json_core.mapper.ApachePoiWorkbookToDoc2JsonSpreadsheetMapper;
+import io.github.doc2json.doc2json_core.mapper.spreadsheet.apache_poi.ApachePoiWorkbookToDoc2JsonSpreadsheetMapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

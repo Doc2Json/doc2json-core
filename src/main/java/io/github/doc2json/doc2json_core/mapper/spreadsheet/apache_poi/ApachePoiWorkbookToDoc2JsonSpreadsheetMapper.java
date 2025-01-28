@@ -1,4 +1,4 @@
-package io.github.doc2json.doc2json_core.mapper;
+package io.github.doc2json.doc2json_core.mapper.spreadsheet.apache_poi;
 
 import java.util.stream.IntStream;
 

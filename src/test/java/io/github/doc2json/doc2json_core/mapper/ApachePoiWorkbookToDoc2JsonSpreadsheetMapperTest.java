@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
+import io.github.doc2json.doc2json_core.mapper.spreadsheet.apache_poi.ApachePoiWorkbookToDoc2JsonSpreadsheetMapper;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonSpreadsheet;
 
  class ApachePoiWorkbookToDoc2JsonSpreadsheetMapperTest {
