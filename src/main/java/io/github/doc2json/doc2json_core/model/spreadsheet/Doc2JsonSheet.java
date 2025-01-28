@@ -11,4 +11,8 @@ import lombok.Data;
 public class Doc2JsonSheet {
     @Builder.Default
     private final List<Doc2JsonRow> rows = new ArrayList<>();
+
+    public int numberOfRows() {
+        return this.rows.size();
+    }
 }

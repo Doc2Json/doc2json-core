@@ -11,4 +11,8 @@ import lombok.Data;
 public class Doc2JsonSpreadsheet {
     @Builder.Default
     private final List<Doc2JsonSheet> sheets = new ArrayList<>();
+
+    public int numberOfSheets() {
+        return this.sheets.size();
+    }
 }

@@ -10,5 +10,9 @@ import lombok.Data;
 @Builder(toBuilder = true)
 public class Doc2JsonRow {
     @Builder.Default
-    private List<Doc2JsonCell> cells = new ArrayList<>();
+    private final List<Doc2JsonCell> cells = new ArrayList<>();
+
+    public int numberOfCells() {
+        return this.cells.size();
+    }
 }
