@@ -7,8 +7,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
 
+import io.github.doc2json.doc2json_core.model.DataType;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonCell;
-import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonCellType;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonRow;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonSheet;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonSpreadsheet;
@@ -32,7 +32,7 @@ public class ApachePoiWorkbookToDoc2JsonSpreadsheetMapper {
 
                         for (Cell cell : row) {
                             final Doc2JsonCell doc2JsonCell = Doc2JsonCell.builder().value(cell.toString())
-                                    .type(Doc2JsonCellType.UNKNOWN).build();
+                                    .type(DataType.UNKNOWN).build();
                             doc2JsonRow.getCells().add(doc2JsonCell);
                         }
                     }
