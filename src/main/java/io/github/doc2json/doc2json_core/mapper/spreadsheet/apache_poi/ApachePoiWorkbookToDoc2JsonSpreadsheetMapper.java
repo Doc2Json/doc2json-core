@@ -7,14 +7,16 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
 
-import io.github.doc2json.doc2json_core.model.DataType;
-import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonCell;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonRow;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonSheet;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonSpreadsheet;
+import lombok.AllArgsConstructor;
 
 @Component
+@AllArgsConstructor
 public class ApachePoiWorkbookToDoc2JsonSpreadsheetMapper {
+
+    private final ApachePoiCellToDoc2JsonCellMapper cellMapper;
 
     public Doc2JsonSpreadsheet toDoc2JsonSpreadsheet(Workbook workbook) {
         final Doc2JsonSpreadsheet doc2JsonSpreadsheet = Doc2JsonSpreadsheet.builder().build();
@@ -31,9 +33,7 @@ public class ApachePoiWorkbookToDoc2JsonSpreadsheetMapper {
                         doc2JsonSheet.getRows().add(doc2JsonRow);
 
                         for (Cell cell : row) {
-                            final Doc2JsonCell doc2JsonCell = Doc2JsonCell.builder().value(cell.toString())
-                                    .type(DataType.UNKNOWN).build();
-                            doc2JsonRow.getCells().add(doc2JsonCell);
+                            doc2JsonRow.getCells().add(cellMapper.toDoc2JsonCell(cell));
                         }
                     }
                 });
