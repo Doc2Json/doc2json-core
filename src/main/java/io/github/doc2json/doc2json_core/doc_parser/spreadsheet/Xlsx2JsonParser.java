@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Set;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.stereotype.Component;
@@ -29,6 +30,12 @@ public class Xlsx2JsonParser implements Doc2JsonParser {
 
     @Override
     public String toJson(File file) throws IOException {
+        String fileExtension = FilenameUtils.getExtension(file.getName());
+
+        if (!supportedExtensions.contains(fileExtension)) {
+            throw new IllegalArgumentException("Unsupported file extension: " + fileExtension);
+        }
+
         try (FileInputStream fis = new FileInputStream(file); final Workbook workbook = WorkbookFactory.create(fis);) {
             return new Gson().toJson(mapper.toDoc2JsonSpreadsheet(workbook));
         }

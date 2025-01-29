@@ -1,6 +1,7 @@
 package io.github.doc2json.doc2json_core.doc_parser.spreadsheet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,15 @@ class Xlsx2JsonParserTest {
     private Xlsx2JsonParser xlsx2JsonParser;
 
     @Test
+    void testToJsonWithUnsupportedFileExtension() {
+        File unsupportedFile = new File(getClass().getClassLoader().getResource("test.txt").getFile());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            xlsx2JsonParser.toJson(unsupportedFile);
+        });
+    }
+
+    @Test
     void testToJson() throws IOException {
 
         File testFile = new File(getClass().getClassLoader().getResource("spreadsheet-numerics.xlsx").getFile());
@@ -32,10 +42,14 @@ class Xlsx2JsonParserTest {
         mockSpreadsheet.getSheets().add(Doc2JsonSheet.builder().build());
         mockSpreadsheet.getSheets().get(0).getRows().add(Doc2JsonRow.builder().build());
         mockSpreadsheet.getSheets().get(0).getRows().add(Doc2JsonRow.builder().build());
-        mockSpreadsheet.getSheets().get(0).getRows().get(0).getCells().add(Doc2JsonCell.builder().value(1.0).type(DataType.NUMERIC).build());
-        mockSpreadsheet.getSheets().get(0).getRows().get(0).getCells().add(Doc2JsonCell.builder().value(2.0).type(DataType.NUMERIC).build());
-        mockSpreadsheet.getSheets().get(0).getRows().get(1).getCells().add(Doc2JsonCell.builder().value(3.0).type(DataType.NUMERIC).build());
-        mockSpreadsheet.getSheets().get(0).getRows().get(1).getCells().add(Doc2JsonCell.builder().value(4.0).type(DataType.NUMERIC).build());
+        mockSpreadsheet.getSheets().get(0).getRows().get(0).getCells()
+                .add(Doc2JsonCell.builder().value(1.0).type(DataType.NUMERIC).build());
+        mockSpreadsheet.getSheets().get(0).getRows().get(0).getCells()
+                .add(Doc2JsonCell.builder().value(2.0).type(DataType.NUMERIC).build());
+        mockSpreadsheet.getSheets().get(0).getRows().get(1).getCells()
+                .add(Doc2JsonCell.builder().value(3.0).type(DataType.NUMERIC).build());
+        mockSpreadsheet.getSheets().get(0).getRows().get(1).getCells()
+                .add(Doc2JsonCell.builder().value(4.0).type(DataType.NUMERIC).build());
 
         String expectedJson = new Gson().toJson(mockSpreadsheet);
 
