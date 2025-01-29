@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 @Builder(toBuilder = true)
 public class Doc2JsonCell {
-    private final String value;
+    private final Object value;
     private final DataType type;
 }
