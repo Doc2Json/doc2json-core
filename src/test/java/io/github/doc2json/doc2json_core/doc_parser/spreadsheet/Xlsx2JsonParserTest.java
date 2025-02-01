@@ -82,4 +82,29 @@ class Xlsx2JsonParserTest {
 
         assertEquals(expectedJson, actualJson);
     }
+
+    @Test
+    void testToJsonWithXlsxAndBooleans() throws IOException {
+
+        File testFile = new File(getClass().getClassLoader().getResource("spreadsheet-booleans.xlsx").getFile());
+
+        Doc2JsonSpreadsheet mockSpreadsheet = Doc2JsonSpreadsheet.builder().build();
+        mockSpreadsheet.getSheets().add(Doc2JsonSheet.builder().build());
+        mockSpreadsheet.getSheets().get(0).getRows().add(Doc2JsonRow.builder().build());
+        mockSpreadsheet.getSheets().get(0).getRows().add(Doc2JsonRow.builder().build());
+        mockSpreadsheet.getSheets().get(0).getRows().get(0).getCells()
+                .add(Doc2JsonCell.builder().value(true).type(DataType.BOOLEAN).build());
+        mockSpreadsheet.getSheets().get(0).getRows().get(0).getCells()
+                .add(Doc2JsonCell.builder().value(false).type(DataType.BOOLEAN).build());
+        mockSpreadsheet.getSheets().get(0).getRows().get(1).getCells()
+                .add(Doc2JsonCell.builder().value(false).type(DataType.BOOLEAN).build());
+        mockSpreadsheet.getSheets().get(0).getRows().get(1).getCells()
+                .add(Doc2JsonCell.builder().value(true).type(DataType.BOOLEAN).build());
+
+        String expectedJson = new Gson().toJson(mockSpreadsheet);
+
+        String actualJson = xlsx2JsonParser.toJson(testFile);
+
+        assertEquals(expectedJson, actualJson);
+    }
 }
