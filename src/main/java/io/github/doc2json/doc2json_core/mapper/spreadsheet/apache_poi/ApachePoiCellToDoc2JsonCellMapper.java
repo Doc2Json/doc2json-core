@@ -24,7 +24,8 @@ public class ApachePoiCellToDoc2JsonCellMapper {
                 couldConvertToDate = true;
             }
         } catch (Exception e) {
-            // do nothing, since it couldn't convert to date, it will try to convert to other types
+            // do nothing, since it couldn't convert to date, it will try to convert to
+            // other types
         }
 
         if (!couldConvertToDate) {
@@ -53,9 +54,13 @@ public class ApachePoiCellToDoc2JsonCellMapper {
                     value = cell.getCellFormula();
                     type = DataType.FORMULA;
                     break;
-                case BLANK:
+                case _NONE, BLANK:
                     value = "";
                     type = DataType.BLANK;
+                    break;
+                case ERROR:
+                    value = cell.getErrorCellValue();
+                    type = DataType.ERROR;
                     break;
                 default:
                     value = cell.toString();

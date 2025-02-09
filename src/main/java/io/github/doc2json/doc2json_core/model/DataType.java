@@ -7,5 +7,6 @@ public enum DataType {
     DATE,
     FORMULA,
     BLANK,
+    ERROR,
     UNKNOWN
 }

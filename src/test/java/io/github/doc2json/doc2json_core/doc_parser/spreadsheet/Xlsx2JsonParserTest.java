@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Month;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,6 @@ import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonCell;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonRow;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonSheet;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonSpreadsheet;
-import io.github.doc2json.doc2json_core.utils.DateUtils;
 
 @SpringBootTest
 class Xlsx2JsonParserTest {
