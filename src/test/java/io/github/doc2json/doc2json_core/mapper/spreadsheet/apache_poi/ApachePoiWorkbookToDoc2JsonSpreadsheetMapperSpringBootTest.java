@@ -53,4 +53,5 @@ class ApachePoiWorkbookToDoc2JsonSpreadsheetMapperTest {
         assertEquals(1, result.getSheets().get(0).getRows().get(0).getCells().size());
         assertEquals(doc2JsonCell, result.getSheets().get(0).getRows().get(0).getCells().get(0));
     }
+
 }
