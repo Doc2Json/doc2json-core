@@ -58,10 +58,6 @@ public class ApachePoiCellToDoc2JsonCellMapper {
                     value = "";
                     type = DataType.BLANK;
                     break;
-                case ERROR:
-                    value = cell.getErrorCellValue();
-                    type = DataType.ERROR;
-                    break;
                 default:
                     value = cell.toString();
                     type = DataType.UNKNOWN;
