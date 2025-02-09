@@ -24,7 +24,7 @@ public class ApachePoiCellToDoc2JsonCellMapper {
                 couldConvertToDate = true;
             }
         } catch (Exception e) {
-            // do nothing, since could convert to date
+            // do nothing, since it couldn't convert to date, it will try to convert to other types
         }
 
         if (!couldConvertToDate) {
