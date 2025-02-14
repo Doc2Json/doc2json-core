@@ -2,10 +2,11 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'maven-publish'
 }
 
 group = 'io.github.doc2json'
-version = '1.0.0'
+version = '0.1.0'
 
 java {
 	toolchain {
@@ -43,4 +44,67 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
+}
+
+tasks.withType(Jar) {
+	manifest {
+		attributes(
+			'Implementation-Title': project.name,
+			'Implementation-Version': project.version,
+			'Built-By': System.getProperty('user.name'),
+			'Built-Date': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+			'License': 'Creative Commons CC0 1.0 Universal (CC0 1.0) Public Domain Dedication'
+		)
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+
+			pom {
+				name = 'doc2json-core'
+				description = 'A project to convert documents to JSON format'
+				url = 'https://github.com/Doc2Json/doc2json-core'
+
+				licenses {
+					license {
+						name = 'Creative Commons CC0 1.0 Universal (CC0 1.0) Public Domain Dedication'
+						url = 'https://creativecommons.org/publicdomain/zero/1.0/'
+					}
+				}
+
+				developers {
+					developer {
+						id = 'maiconfz'
+						name = 'Maicon Fonseca Zanco'
+						email = 'maiconfz@gmail.com'
+					}
+				}
+
+				scm {
+					connection = 'scm:git:git://github.com/Doc2Json/doc2json-core.git'
+					developerConnection = 'scm:git:git://github.com/Doc2Json/doc2json-core.git'
+					url = 'https://github.com/Doc2Json/doc2json-core'
+				}
+			}
+		}
+	}
+
+	repositories {
+		maven {
+			name = 'MavenCentral'
+			url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+
+			credentials {
+				username = project.findProperty("ossrhDoc2JsonUsername") ?: ""
+				password = project.findProperty("ossrhDoc2JsonPassword") ?: ""
+			}
+		}
+	}
 }
