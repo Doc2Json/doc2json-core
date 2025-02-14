@@ -1,4 +1,4 @@
-package io.github.doc2json.doc2json_core.doc_parser.spreadsheet;
+package io.github.doc2json.doc2json_core.doc_parser.spreadsheet.xslx;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,16 +17,16 @@ import lombok.Getter;
 @Getter
 public class Xlsx2JsonParser implements Doc2JsonParser {
 
-    private final Xlsx2SpreadsheetParser xlsx2SpreadSheetParser;
+    private final Xlsx2SpreadsheetParser xlsx2SpreadsheetParser;
 
     @Override
     public String toJson(File file) throws IOException {
-        return new Gson().toJson(xlsx2SpreadSheetParser.toSpreadsheet(file));
+        return new Gson().toJson(xlsx2SpreadsheetParser.toSpreadsheet(file));
     }
 
     @Override
     public Set<String> getSupportedExtensions() {
-        return xlsx2SpreadSheetParser.getSupportedExtensions();
+        return xlsx2SpreadsheetParser.getSupportedExtensions();
     }
 
 }

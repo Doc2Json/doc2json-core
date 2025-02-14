@@ -1,4 +1,4 @@
-package io.github.doc2json.doc2json_core.doc_parser.spreadsheet;
+package io.github.doc2json.doc2json_core.doc_parser.spreadsheet.xslx;
 
 import java.io.File;
 import java.io.FileInputStream;

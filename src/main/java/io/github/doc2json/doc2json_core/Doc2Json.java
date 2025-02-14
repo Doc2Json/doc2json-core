@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Component;
 
-import io.github.doc2json.doc2json_core.doc_parser.spreadsheet.Xlsx2JsonParser;
+import io.github.doc2json.doc2json_core.doc_parser.spreadsheet.xslx.Xlsx2JsonParser;
 import lombok.AllArgsConstructor;
 
 @Component
