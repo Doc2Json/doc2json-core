@@ -1,11 +1,9 @@
-package io.github.doc2json.doc2json_core.doc_parser.spreadsheet;
+package io.github.doc2json.doc2json_core.doc_parser.spreadsheet.ods;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import org.junit.jupiter.api.Test;
@@ -21,25 +19,25 @@ import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonSheet;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonSpreadsheet;
 
 @SpringBootTest
-class Xlsx2JsonParserTest {
+class Ods2JsonParserTest {
 
         @Autowired
-        private Xlsx2JsonParser xlsx2JsonParser;
+        private Ods2JsonParser ods2JsonParser;
 
         @Test
         void testToJsonWithUnsupportedFileExtension() {
                 File unsupportedFile = new File(getClass().getClassLoader().getResource("test.txt").getFile());
 
                 assertThrows(IllegalArgumentException.class, () -> {
-                        xlsx2JsonParser.toJson(unsupportedFile);
+                        ods2JsonParser.toJson(unsupportedFile);
                 });
         }
 
         @Test
-        void testToJsonWithXlsxAndNumerics() throws IOException {
+        void testToJsonWithOdsAndNumerics() throws Exception {
 
                 File testFile = new File(
-                                getClass().getClassLoader().getResource("spreadsheet-numerics.xlsx").getFile());
+                                getClass().getClassLoader().getResource("spreadsheet-numerics.ods").getFile());
 
                 Doc2JsonSpreadsheet mockSpreadsheet = Doc2JsonSpreadsheet.builder().build();
                 mockSpreadsheet.getSheets().add(Doc2JsonSheet.builder().build());
@@ -56,15 +54,15 @@ class Xlsx2JsonParserTest {
 
                 String expectedJson = new Gson().toJson(mockSpreadsheet);
 
-                String actualJson = xlsx2JsonParser.toJson(testFile);
+                String actualJson = ods2JsonParser.toJson(testFile);
 
                 assertEquals(expectedJson, actualJson);
         }
 
         @Test
-        void testToJsonWithXlsxAndStrings() throws IOException {
+        void testToJsonWithOdsAndStrings() throws Exception {
 
-                File testFile = new File(getClass().getClassLoader().getResource("spreadsheet-strings.xlsx").getFile());
+                File testFile = new File(getClass().getClassLoader().getResource("spreadsheet-strings.ods").getFile());
 
                 Doc2JsonSpreadsheet mockSpreadsheet = Doc2JsonSpreadsheet.builder().build();
                 mockSpreadsheet.getSheets().add(Doc2JsonSheet.builder().build());
@@ -81,16 +79,16 @@ class Xlsx2JsonParserTest {
 
                 String expectedJson = new Gson().toJson(mockSpreadsheet);
 
-                String actualJson = xlsx2JsonParser.toJson(testFile);
+                String actualJson = ods2JsonParser.toJson(testFile);
 
                 assertEquals(expectedJson, actualJson);
         }
 
         @Test
-        void testToJsonWithXlsxAndBooleans() throws IOException {
+        void testToJsonWithOdsAndBooleans() throws Exception {
 
                 File testFile = new File(
-                                getClass().getClassLoader().getResource("spreadsheet-booleans.xlsx").getFile());
+                                getClass().getClassLoader().getResource("spreadsheet-booleans.ods").getFile());
 
                 Doc2JsonSpreadsheet mockSpreadsheet = Doc2JsonSpreadsheet.builder().build();
                 mockSpreadsheet.getSheets().add(Doc2JsonSheet.builder().build());
@@ -107,17 +105,17 @@ class Xlsx2JsonParserTest {
 
                 String expectedJson = new Gson().toJson(mockSpreadsheet);
 
-                String actualJson = xlsx2JsonParser.toJson(testFile);
+                String actualJson = ods2JsonParser.toJson(testFile);
 
                 assertEquals(expectedJson, actualJson);
         }
 
         @Test
-        void testToJsonWithXlsxAndDates() throws IOException, ParseException {
+        void testToJsonWithOdsAndDates() throws Exception {
 
                 final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-                File testFile = new File(getClass().getClassLoader().getResource("spreadsheet-dates.xlsx").getFile());
+                File testFile = new File(getClass().getClassLoader().getResource("spreadsheet-dates.ods").getFile());
 
                 Doc2JsonSpreadsheet mockSpreadsheet = Doc2JsonSpreadsheet.builder().build();
                 mockSpreadsheet.getSheets().add(Doc2JsonSheet.builder().build());
@@ -134,15 +132,15 @@ class Xlsx2JsonParserTest {
 
                 String expectedJson = new Gson().toJson(mockSpreadsheet);
 
-                String actualJson = xlsx2JsonParser.toJson(testFile);
+                String actualJson = ods2JsonParser.toJson(testFile);
 
                 assertEquals(expectedJson, actualJson);
         }
 
         @Test
-        void testToJsonWithXlsxAndFormulas() throws IOException {
+        void testToJsonWithOdsAndFormulas() throws Exception {
 
-                File testFile = new File(getClass().getClassLoader().getResource("spreadsheet-formulas.xlsx").getFile());
+                File testFile = new File(getClass().getClassLoader().getResource("spreadsheet-formulas.ods").getFile());
 
                 Doc2JsonSpreadsheet mockSpreadsheet = Doc2JsonSpreadsheet.builder().build();
                 mockSpreadsheet.getSheets().add(Doc2JsonSheet.builder().build());
@@ -159,7 +157,7 @@ class Xlsx2JsonParserTest {
 
                 String expectedJson = new Gson().toJson(mockSpreadsheet);
 
-                String actualJson = xlsx2JsonParser.toJson(testFile);
+                String actualJson = ods2JsonParser.toJson(testFile);
 
                 assertEquals(expectedJson, actualJson);
         }

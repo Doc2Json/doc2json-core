@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.EnumSet;
 
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +21,13 @@ class ApachePoiWorkbookToDoc2JsonSpreadsheetMapperSpringBootTest {
 
     @Test
     void testtoDoc2JsonSpreadsheetWithOnlyKnownDataTypes() throws IOException {
-        File file = new File(getClass().getClassLoader().getResource("spreadsheet-mixed.xlsx").getFile());
+        final var file = new File(getClass().getClassLoader().getResource("spreadsheet-mixed.xlsx").getFile());
 
-        final EnumSet<DataType> knownDataTypes = EnumSet.of(DataType.STRING, DataType.NUMERIC, DataType.BOOLEAN,
-                DataType.DATE, DataType.FORMULA, DataType.BLANK);
-
-        try (FileInputStream fis = new FileInputStream(file); final Workbook workbook = WorkbookFactory.create(fis);) {
+        try (final var fis = new FileInputStream(file); final var workbook = WorkbookFactory.create(fis);) {
             mapper.toDoc2JsonSpreadsheet(workbook).getSheets().forEach(sheet -> {
                 sheet.getRows().forEach(row -> {
                     row.getCells().forEach(cell -> {
-                        assertEquals(true, knownDataTypes.contains(cell.getType()));
+                        assertEquals(true, !DataType.UNKNOWN.equals(cell.getType()));
                     });
                 });
             });

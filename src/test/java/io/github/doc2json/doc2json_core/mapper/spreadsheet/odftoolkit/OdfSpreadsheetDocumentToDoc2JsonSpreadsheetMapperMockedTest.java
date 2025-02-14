@@ -20,7 +20,7 @@ import io.github.doc2json.doc2json_core.model.DataType;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonCell;
 import io.github.doc2json.doc2json_core.model.spreadsheet.Doc2JsonSpreadsheet;
 
-class OdfSpreadsheetDocumentToDoc2JsonSpreadsheetMapperTest {
+class OdfSpreadsheetDocumentToDoc2JsonSpreadsheetMapperMockedTest {
 
     @Mock
     private OdfTableCellToDoc2JsonCellMapper cellMapper;

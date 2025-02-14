@@ -19,18 +19,22 @@ public class OdfSpreadsheetDocumentToDoc2JsonSpreadsheetMapper {
         final Doc2JsonSpreadsheet doc2JsonSpreadsheet = Doc2JsonSpreadsheet.builder().build();
 
         spreadsheet.getSpreadsheetTables().forEach(sheet -> {
-             final var doc2JsonSheet = Doc2JsonSheet.builder().build();
-             doc2JsonSpreadsheet.getSheets().add(doc2JsonSheet);
+            final var doc2JsonSheet = Doc2JsonSheet.builder().build();
+            doc2JsonSpreadsheet.getSheets().add(doc2JsonSheet);
 
-                sheet.getRowList().forEach(row -> {
-                    final var doc2JsonRow = Doc2JsonRow.builder().build();
-                    doc2JsonSheet.getRows().add(doc2JsonRow);
-                    
-                    for (int i = 0; i < row.getCellCount(); i++) {
-                        doc2JsonRow.getCells().add(cellMapper.toDoc2JsonCell(row.getCellByIndex(i)));
-                    }
+            sheet.getRowList().forEach(row -> {
+                final var doc2JsonRow = Doc2JsonRow.builder().build();
+                doc2JsonSheet.getRows().add(doc2JsonRow);
 
-                });
+                var i = 0;
+                var cell = row.getCellByIndex(i++);
+
+                while (cell != null && cell.getValueType() != null) {
+                    doc2JsonRow.getCells().add(cellMapper.toDoc2JsonCell(cell));
+                    cell = row.getCellByIndex(i++);
+                }
+
+            });
         });
 
         return doc2JsonSpreadsheet;
